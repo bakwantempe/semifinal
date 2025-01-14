@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu - Kafe Koma</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="jawascipt.js"></script>
+    <style>
+      #cart-count {
+  font-size: 24px; /* Ubah ukuran font menjadi 24px */
+}
+
+      #cart-button {
+        position: fixed; 
+        bottom: 2%;
+        right: 2%;
+        background-color: #ffd700; /* Warna coklat tua */
+        color: #4a2c2a;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor:grab;
+      }
+
+      #cart button:hover {
+        background-color: #ffd700; /* Warna emas saat hover */
+        color: #4a2c2a; /* Warna coklat tua */
+      }
+
+      #cart-items li {
+        display: flex;
+        align-items: center;
+        padding: 5px 0;
+        border-bottom: 1px solid #ddd;
+      }
+
+      #cart-items button {
+        /* Warna merah */
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 50%; /* Membuat tombol berbentuk lingkaran */
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        margin-right: 10px; /* Jarak antara tombol dan teks pesanan */
+      }
+
+      #cart-items button:hover {
+        background-color: #cc0000; /* Warna merah lebih gelap saat hover */
+        transform: scale(1.1); /* Efek membesar saat hover */
+      }
+
+/* Animasi tombol pesan */
+.button-pesan {
+  transition: transform 0.2s ease-in-out;
+}
+
+.button-pesan:hover {
+  transform: scale(1.1);
+}
+
+.button-pesan:active {
+  transform: scale(0.9);
+}
+
+
+.menu-image.animate {
+  transform: scale(1.2) rotate(10deg);
+}
+
+      #cart-items button:active {
+        transform: scale(0.9); /* Efek mengecil saat diklik */
+      }
+
+      #cart h3 {
+        margin: 0 0 10px;
+        font-size: 1.5rem;
+        color: #4a2c2a; /* Warna coklat tua */
+      }
+
+      #cart-items {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 10px;
+      }
+
+      #cart-total {
+        font-weight: bold;
+        color: #4a2c2a; /* Warna coklat tua */
+      }
+
+      /* Gaya untuk menu */
+      #menu {
+        background-color: white;
+        margin-left: 8%;
+        margin-right: 8%;
+        max-width: auto;
+      }
+
+      /* Gaya untuk container menu */
+      .menu-container {
+        display: flex;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      /* Gaya untuk bagian makanan */
+      .food-menu {
+        width: 48%; /* Lebar 48% untuk makanan */
+      }
+
+      /* Gaya untuk bagian minuman */
+      .drink-menu {
+        width: 48%; /* Lebar 48% untuk minuman */
+      }
+
+      /* Gaya untuk judul */
+      .judul {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      /* Gaya untuk daftar menu */
+      #menu ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      #menu p {
+        text-align: center;
+      }
+
+      /* Gaya untuk gambar menu */
+      .menu-image {
+        width: 100px;
+        height: 100px;
+        border-radius: 10px;
+        object-fit: cover;
+        margin-right: 15px;
+      }
+
+      /* Gaya untuk detail menu */
+      .menu-details {
+        font-size: 20px;
+        flex: 1; /* Mengisi sisa ruang yang tersedia */
+      }
+
+      /* Gaya untuk daftar menu */
+      #menu li {
+        display: flex;
+        align-items: center; /* Menyelaraskan gambar dan teks secara vertikal */
+        background-color: #f5f5f5;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Gaya untuk gambar menu */
+      .menu-image {
+        width: 100px; /* Sesuaikan ukuran sesuai kebutuhan */
+        height: 100px; /* Sesuaikan ukuran sesuai kebutuhan */
+        border-radius: 10px; /* Membuat sudut gambar melengkung */
+        object-fit: cover; /* Memastikan gambar tidak terdistorsi */
+        margin-right: 15px; /* Jarak antara gambar dan teks */
+        transition: transform 0.5s ease-in-out;
+      }
+
+      /* Gaya untuk detail menu */
+      .menu-details {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      #menu li .price {
+        color: #4a2c2a;
+        padding-bottom: 3%;
+        font-weight: bold;
+        text-align: right;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+
+      #menu li strong {
+        color: #4a2c2a;
+      }
+
+      #menu button {
+        background-color: #4a2c2a;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      #menu button:hover {
+        background-color: #ffd700;
+        transition: 0.8;
+        color: #4a2c2a;
+      }
+
+      #menu h2 {
+        font-size: 35px;
+        color: #4a2c2a; /* Warna coklat tua */
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      #menu h3 {
+        font-size: 30px;
+        color: #4a2c2a; /* Warna coklat tua */
+        margin: 20px 0 10px;
+      }
+
+      /* Gaya untuk pop-up */
+      .popup {
+        display: none; /* Sembunyikan pop-up secara default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Latar belakang transparan */
+        z-index: 999;
+      }
+
+      /* Gaya untuk konten pop-up */
+      .popup-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        max-width: 400px;
+        width: 100%;
+      }
+
+      /* Gaya untuk tombol tutup */
+      .popup-content button {
+        margin-top: 10px;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: #4a2c2a;
+        color: white;
+      }
+
+      .popup-content button:hover {
+        background-color: #ffd700;
+        color: #4a2c2a;
+      }
+
+      .container {
+  position: relative;
+  width: 100%;
+  height: 40vh;
+  overflow: hidden;
+}
+
+.video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(50%);
+}
+
+.overlay {
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  right: 0%;
+  width: 70%;
+  height: 30%;
+  padding-top: 0; 
+  padding-bottom:0 ;
+  color: #fbcfa2;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.overlay h1 {
+  font-size: 55px;
+  margin-bottom :20px;
+}
+
+.overlay p {
+  font-size: large;
+  margin-top: 20px;
+}
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="latar">
+          <div>
+              <p class="judulkoma">K O M A,</p>
+              <br>
+              <p class="judulcne">C O F F E E & E A T E R Y</p>
+          </div>
+      </div>
+  </header>
+  
+  <header class="header2">
+    <nav>
+      <a href="index.html" class="nav-menu">Home</a>
+      <a href="tentang.html" class="nav-menu">About Us</a>
+      <a href="galeri.html" class="nav-menu">Our Gallery</a>
+      <img src="media/koma2.jpg" alt="Logo">
+      <a href="fasilitas.html" class="nav-menu">Facility</a>
+      <a href="menu.html" class="nav-menu" id="active">Menu</a>
+      <a href="kontak.html" class="nav-menu">Contact Us</a>
+    </nav>
+  </header>
+  <audio id="background-music" autoplay loop>
+    <source src="media/music.mp3" type="audio/mpeg">
+    Browser Anda tidak mendukung elemen audio.
+  </audio>
+  
+  <button id="music-toggle">
+    <img id="play-icon" src="media/pause.png" alt="Play"> <!-- Gambar saat musik menyala -->
+    <img id="pause-icon" src="media/play.png" alt="Pause" style="display: none;"> <!-- Gambar saat musik mati -->
+  </button>
+
+    <button id="cart-button" onclick="toggleCart()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="40"
+        height="40"
+        fill="currentColor"
+        class="bi bi-cart"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"
+        /></svg><span id="cart-count">0</span>
+    </button>
+  
+
+    <section>
+      <div class="container">
+        <video class="video" autoplay muted loop>
+          <source src="media/menu.mp4" type="video/mp4">
+        </video>
+        <div class="overlay">
+          <h1>Our Menu</h1>
+          <p>"Your journey to delicious begins here."</p>
+        </div>
+      </div>
+    </section>
+
+
+    
+    <section id="menu">
+      <div class="menu-container">
+        <!-- Bagian Makanan -->
+        <div class="food-menu">
+          <h3 class="judul" style="font-size: 40px; border: 3px solid #4a2c2a; background-color: #4a2c2a; color: white; border-radius: 15px;">FOOD</h3>
+          <h3 >Rice Bowl</h3>
+          <ul>
+            <!-- Rice Bowl -->
+            <li>
+              <img src="media/katsu.jpg" alt="Chicken Katsu Teriyaki" class="menu-image" />
+              <div class="menu-details">
+                <strong>Chicken Katsu Teriyaki </strong>
+                <span class="price">25,000 IDR</span>
+                <button onclick="addToCart('Chicken Katsu Teriyaki', 25000)" class="button-pesan">Pesan</button>
+              </div>
+              <li>
+                <img src="media/Chicken Salted Egg.jpeg" alt="Chicken Salted Egg" class="menu-image  " />
+                <div class="menu-details">
+                  <strong>Chicken Salted Egg </strong>
+                  <span class="price">30,000 IDR</span>
+                  <button onclick="addToCart('Chicken Salted Egg', 30000)" class="button-pesan">Pesan</button>
+                </div>
+              </li>
+              <li>
+                <img src="media/Beef Bulgogi.jpeg" alt="Beef Bulgogi" class="menu-image  " />
+                <div class="menu-details">
+                  <strong>Beef Bulgogi </strong>
+                  <span class="price">30,000 IDR</span>
+                  <button onclick="addToCart('Beef Bulgogi', 30000)" class="button-pesan">Pesan</button>
+                </div>
+              </li>
+              <li>
+                <img src="media/Beef Black Pepper..jpeg" alt="Beef Black Pepper" class="menu-image  " />
+                <div class="menu-details">
+                  <strong>Beef Black Pepper </strong>
+                  <span class="price">30,000 IDR</span>
+                  <button onclick="addToCart('Beef Black Pepper', 30000)" class="button-pesan">Pesan</button>
+                </div>
+              </li>
+
+              <li>
+                <img src="media/Chicken Garlic Butter.jpeg" alt="Chicken Garlic Butter" class="menu-image  " />
+                <div class="menu-details">
+                  <strong>Chicken Garlic Butter </strong>
+                  <span class="price">30,000 IDR</span>
+                  <button onclick="addToCart('Chicken Garlic Butter', 30000)" class="button-pesan">Pesan</button>
+                </div>
+              </li>
+              <li>
+                <img src="media/Chicken Popcorn Asam Manis.jpeg" alt="Chicken Popcorn Asam Manis" class="menu-image  " />
+                <div class="menu-details">
+                  <strong>Chicken Popcorn Asam Manis </strong>
+                  <span class="price">26,000 IDR</span>
+                  <button onclick="addToCart('Chicken Popcorn Asam Manis', 26000)" class="button-pesan">Pesan</button>
+                </div>
+              </li>
+            </li>
+          </ul>
+
+          <h3 >Noodles</h3>
+          <ul>
+            <li>
+              <img src="media/indomiegoreng.jpeg" alt="Indomie Goreng Koma" class="menu-image  " />
+              <div class="menu-details">
+                <strong>Indomie Goreng Koma </strong>
+                <span class="price">18,000 IDR</span>
+                <button onclick="addToCart('Indomie Goreng Koma', 18000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+            <li>
+              <img src="media/indomiegoreng.jpeg" alt="Indomie Kuah Koma" class="menu-image  " />
+              <div class="menu-details">
+                <strong>Indomie Kuah Koma </strong>
+                <span class="price">18,000 IDR</span>
+                <button onclick="addToCart(' Indomie Kuah Koma', 18000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+          </ul>
+
+          
+    
+          <h3>Special Menu</h3>
+          <ul>
+            <li>
+              <img src="media/nasgor.jpg" alt="Nasi Goreng Spesial" class="menu-image  " />
+              <div class="menu-details">
+                <strong>Nasi Goreng Spesial </strong>
+                <span class="price">25,000 IDR</span>
+                <button onclick="addToCart('Nasi Goreng Spesial', 25000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+            <li>
+              <img src="media/Nasi Goreng Seafood.jpeg" alt="Nasi Goreng Seafood" class="menu-image  " />
+              <div class="menu-details">
+                <strong>Nasi Goreng Seafood </strong>
+                <span class="price">25,000 IDR</span>
+                <button onclick="addToCart('Nasi Goreng Seafood', 25000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+            <li>
+              <img src="media/Nasi Goreng Teri Cabe Ijo.jpeg" alt="Nasi Goreng Teri Cabe Ijo" class="menu-image  " />
+              <div class="menu-details">
+                <strong>Nasi Goreng Teri Cabe Ijo </strong>
+                <span class="price">25,000 IDR</span>
+                <button onclick="addToCart('Nasi Goreng Teri Cabe Ijo', 25000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+            <li>
+              <img src="media/naspak.jpg" alt="Nasi Paket" class="menu-image  " />
+              <div class="menu-details">
+                <strong>Nasi Paket (Ayam Cabe, Tempe, Tahu) </strong>
+                <span class="price">30,000 IDR</span>
+                <button onclick="addToCart('Nasi Paket', 30000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+
+            <li>
+              <img src="media/asjerk.jpg" alt="Nasi Daun Jeruk Ayam Lengkuas" class="menu-image  " />
+              <div class="menu-details">
+                <strong>Nasi Daun Jeruk Ayam Lengkuas </strong>
+                <span class="price">25,000 IDR</span>
+                <button onclick="addToCart('Nasi Daun Jeruk Ayam Lengkuas', 25000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+          </ul>
+    
+    
+          <h3 >Pasta</h3>
+          <ul>
+            <li>
+              <img src="media/Carbonara.jpeg" alt="Carbonara" class="menu-image  " />
+              <div class="menu-details">
+                <strong>Carbonara </strong>
+                <span class="price">25,000 IDR</span>
+                <button onclick="addToCart('Carbonara', 25000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+            <li>
+              <img src="media/Aglio Olio.jpeg" alt="Aglio Olio" class="menu-image  " />
+              <div class="menu-details">
+                <strong>Aglio Olio </strong>
+                <span class="price">25,000 IDR</span>
+                <button onclick="addToCart('Aglio Olio', 25000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+
+            <li>
+              <img src="media/Bolognese.jpeg" alt="Bolognese" class="menu-image  " />
+              <div class="menu-details">
+                <strong>Bolognese </strong>
+                <span class="price">25,000 IDR</span>
+                <button onclick="addToCart('Bolognese', 25000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+          </ul>
+
+          <h3 >Snacks</h3>
+          <ul>
+            <li>
+              <img src="media/Chicken Wings.jpeg" alt="Chicken Wings" class="menu-image  " />
+              <div class="menu-details">
+                <strong>Chicken Wings (French Fries + Rice) </strong>
+                <span class="price">35,000 IDR</span>
+                <button onclick="addToCart('Chicken Wings', 35000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+            <li>
+              <img src="media/Ubi Goreng.jpeg" alt="Ubi Goreng" class="menu-image  " />
+              <div class="menu-details">
+                <strong>Ubi Goreng </strong>
+                <span class="price">15,000 IDR</span>
+                <button onclick="addToCart('Ubi Goreng', 15000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+            <li>
+              <img src="media/Tahu Cabe Garam.jpeg" alt="Tahu Cabe Garam" class="menu-image  " />
+              <div class="menu-details">
+                <strong>Tahu Cabe Garam </strong>
+                <span class="price">15,000 IDR</span>
+                <button onclick="addToCart('Tahu Cabe Garam', 15000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+            <li>
+              <img src="media/Onion Rings.jpeg" alt="Onion Rings" class="menu-image  " />
+              <div class="menu-details">
+                <strong>Onion Rings </strong>
+                <span class="price">15,000 IDR</span>
+                <button onclick="addToCart('Onion Rings', 15000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+            <li>
+              <img src="media/French Fries.jpeg" alt="French Fries" class="menu-image  " />
+              <div class="menu-details">
+                <strong>French Fries </strong>
+                <span class="price">17,000 IDR</span>
+                <button onclick="addToCart('French Fries', 17000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+            <li>
+              <img src="media/Potato Wedges.jpeg" alt="Potato Wedges" class="menu-image  " />
+              <div class="menu-details">
+                <strong>Potato Wedges</strong>
+                <span class="price">20,000 IDR</span>
+                <button onclick="addToCart('Potato Wedges', 20000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+            <li>
+              <img src="media/Taiwan Crispy Chicken.jpeg" alt="Taiwan Crispy Chicken" class="menu-image  " />
+              <div class="menu-details">
+                <strong>Taiwan Crispy Chicken</strong>
+                <span class="price">23,000 IDR</span>
+                <button onclick="addToCart('Taiwan Crispy Chicken', 23000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+          </ul>
+    
+
+          <h3 >Add-On</h3>
+          <ul>
+            <li>
+              <strong>Nasi</strong>
+              <button onclick="addToCart('(add-on)Nasi', 5000)" class="button-pesan" style="margin-left: 76%;">Pesan</button>
+            </li>
+            <li>
+              <strong>Srikaya</strong>
+              <button onclick="addToCart('(add-on)Srikaya', 5000)" class="button-pesan" style="margin-left: 72%;">Pesan</button>
+            </li>
+            <li>
+              <strong>Telur (Mata Sapi/Dadar)</strong>
+              <button onclick="addToCart('(add-on)Telur', 5000)" class="button-pesan" style="margin-left: 50%;">Pesan</button>
+            </li>
+          </ul>
+        </div>
+
+
+        <!-- Bagian Minuman -->
+        <div class="drink-menu">
+          <h3 class="judul" style="font-size: 40px; border: 3px solid #4a2c2a; background-color: #4a2c2a; color: white; border-radius: 15px;">DRINK</h3>
+          <ul>
+            <!-- COFFEE -->
+            <h3>Coffee</h3>
+            <li>
+              <img
+                src="media/Con hielo milk.jpeg"
+                alt="Con hielo milk"
+                class="menu-image  "
+              />
+              <div class="menu-details">
+                <strong>Con Hielo Milk</strong>
+                <span class="price">25.000 IDR</span>
+                <button onclick="addToCart('Con hielo milk', 25000)" class="button-pesan">
+                  Pesan
+                </button>
+              </div>
+            </li>
+            <li>
+              <img src="media/americano.jpeg" alt="Americano" class="menu-image  " />
+              <div class="menu-details">
+                <strong>Americano </strong>
+                <span class="price">20.000 IDR</span>
+                <button onclick="addToCart('Americano', 20000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+            <li>
+              <img src="media/latte.jpeg" alt="Latte" class="menu-image  " />
+              <div class="menu-details">
+                <strong>Latte </strong>
+                <span class="price">24.000 IDR</span>
+                <button onclick="addToCart('Latte', 24000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+            <li>
+              <img src="media/Mochacinno.jpeg"
+                alt="Mochacinno"
+                class="menu-image  "
+              />
+              <div class="menu-details">
+                <strong>Mochacinno </strong>
+                <span class="price">24.000 IDR</span>
+                <button onclick="addToCart('Mochacinno', 24000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+            <li>
+              <img src="media/matcha.jpeg"
+                alt="Matcha"
+                class="menu-image  "
+              />
+              <div class="menu-details">
+                <strong>Matcha </strong>
+                <span class="price">22.000 IDR</span>
+                <button onclick="addToCart('Matcha', 22000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+            <li>
+              <img src="media/chocolate.jpeg"
+                alt="Chocolate"
+                class="menu-image  "
+              />
+              <div class="menu-details">
+                <strong>Chocolate </strong>
+                <span class="price">22.000 IDR</span>
+                <button onclick="addToCart('Chocolate', 22000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+
+            <!-- NON COFFEE -->
+            <h3>Non Coffee</h3>
+            <li>
+              <img src="media/Sugar pear.jpeg"
+                alt="Sugar pear"
+                class="menu-image  "
+              />
+              <div class="menu-details">
+                <strong>Sugar pear </strong>
+                <span class="price">18.000 IDR</span>
+                <button onclick="addToCart('Sugar pear', 18000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+            <li>
+              <img src="media/Purple swizzle.jpeg"
+                alt="Purple swizzle"
+                class="menu-image  "
+              />
+              <div class="menu-details">
+                <strong>Purple swizzle </strong>
+                <span class="price">25.000 IDR</span>
+                <button onclick="addToCart('Purple swizzle', 25000)"class="button-pesan">
+                  Pesan
+                </button>
+              </div>
+            </li>
+            <li>
+              <img src="media/minuman.jpg"
+                alt="Candy rush"
+                class="menu-image  "
+              />
+              <div class="menu-details">
+                <strong>Candy rush </strong> 
+                <span class="price">24.000 IDR</span>
+                <button onclick="addToCart('Candy rush', 24000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+            <li>
+              <img
+                src="media/Baby cino.jpeg"
+                alt="Baby cino"
+                class="menu-image  "
+              />
+              <div class="menu-details">
+                <strong>Baby cino </strong>
+                <span class="price">23.000 IDR</span>
+                <button onclick="addToCart('Baby cino', 23000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+            <li>
+              <img
+                src="media/Cado cream.jpeg"
+                alt="Cado cream"
+                class="menu-image  "
+              />
+              <div class="menu-details">
+                <strong>Cado cream </strong> 
+                <span class="price">24.000 IDR</span>
+                <button onclick="addToCart('Cado cream', 24000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+
+            <!-- SIGNATURE -->
+            <h3>Signature</h3>
+            <li>
+              <img
+                src="media/Coma toffee.jpeg"
+                alt="Coma Coffee"
+                class="menu-image  "
+              />
+              <div class="menu-details">
+                <strong>Coma Coffee </strong>
+                <span class="price">24.000 IDR</span>
+                <button onclick="addToCart('Coma toffee', 24000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+            <li>
+              <img
+                src="media/kopi susu aren.jpeg"
+                alt="Kopi Susu Aren"
+                class="menu-image  "
+              />
+              <div class="menu-details">
+                <strong>Kopi Susu Aren </strong>
+                <span class="price">25.000 IDR</span>
+                <button onclick="addToCart('Wapi susu aren', 25000)"class="button-pesan">
+                  Pesan
+                </button>
+              </div>
+            </li>
+            <li>
+              <img
+                src="media/Kopi susu pandan.jpeg"
+                alt="Kopi susu pandan "
+                class="menu-image  "
+              />
+              <div class="menu-details">
+                <strong>Kopi Susu Pandan </strong>
+                <span class="price">25.000 IDR</span>
+                <button onclick="addToCart('Kopi susu pandan', 25000)" class="button-pesan">
+                  Pesan
+                </button>
+              </div>
+            </li>
+            <li>
+              <img
+                src="media/Salted caramel.jpeg"
+                alt="Salted caramel"
+                class="menu-image  "
+              />
+              <div class="menu-details">
+                <strong>Salted Caramel </strong>
+                <span class="price">24.000 IDR</span>
+                <button onclick="addToCart('Salted caramel', 24000)" class="button-pesan">
+                  Pesan
+                </button>
+              </div>
+            </li>
+            <li>
+              <img
+                src="media/My berries.jpeg"
+                alt="My berries"
+                class="menu-image  "
+              />
+              <div class="menu-details">
+                <strong>My Berries </strong>
+                <span class="price">25.000 IDR</span>
+                <button onclick="addToCart('My berries', 25000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+            <li>
+              <img
+                src="media/Citrus black summer.jpeg"
+                alt="Citrus black summer"
+                class="menu-image  "
+              />
+              <div class="menu-details">
+                <strong>Citrus Black Summer </strong>
+                <span class="price">24.000 IDR</span>
+                <button onclick="addToCart('Citrus black summer', 24000)" class="button-pesan">
+                  Pesan
+                </button>
+              </div>
+            </li>
+
+            <!-- MOCKTAIL -->
+            <h3>Mocktail</h3>
+            <li>
+              <img
+                src="media/Cookies & Cream.jpeg"
+                alt="Cookies & Cream"
+                class="menu-image  "
+              />
+              <div class="menu-details">
+                <strong>Cookies & Cream </strong>
+                <span class="price">22.000 IDR</span>
+                <button onclick="addToCart('Cookies & Cream', 22000)" class="button-pesan">
+                  Pesan
+                </button>
+              </div>
+            </li>
+            <li>
+              <img
+                src="media/freegal drink.jpeg"
+                alt="Freegal"
+                class="menu-image  "
+              />
+              <div class="menu-details">
+                <strong>Freegal</strong>
+                <span class="price">22.000 IDR</span>
+                <button onclick="addToCart('Freegal', 22000)" class="button-pesan">Pesan</button>
+              </div>
+            </li>
+            <h3 >Add-On</h3>
+            <ul>
+              <li>
+                <strong>Ice Cream</strong>
+                <button onclick="addToCart('(add-on)Ice Cream', 5000)" class="button-pesan" style="margin-left: 71%;">Pesan</button>
+              </li>
+              <li>
+                <strong>Extra Shot</strong>
+                <button onclick="addToCart('(add-on)Extra Shot', 5000)" class="button-pesan" style="margin-left: 70%;">Pesan</button>
+              </li>
+            </ul>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div id="cart-container">
+      <div id="cart-popup" class="popup">
+        <div class="popup-content">
+          <h3>Keranjang Belanja</h3>
+          <ul id="cart-items"></ul>
+          <p>Total: <span id="cart-total">0</span> IDR</p>
+          <button onclick="resetCart()">Reset Pesanan</button>
+          <button onclick="toggleCart()">Tutup</button>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="latar">
+          <div>
+              <img src="media/koma2.jpg" alt="koma">
+          </div>
+  
+          <div>
+              <p class="judulkoma">K O M A,</p>
+              <br>
+              <p class="judulcne">C O F F E E & E A T E R Y</p>
+          </div>
+      </div>
+  </footer>
+  
+  <footer class="footer2">
+      <div>
+          <p>Jl. Perdamaian, Pal IX, Kec. Sungai Kakap, Kabupaten Kubu Raya, Kalimantan Barat</p>
+          <p>&copy 2024 KOMA COFFEE</p>
+      </div>
+  </footer>
+
+    <script>
+      let cart = [];
+      let total = 0;
+
+      // Fungsi untuk menambahkan item ke keranjang
+      function addToCart(itemName, price) {
+        const existingItem = cart.find((item) => item.name === itemName);
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          cart.push({ name: itemName, price: price, quantity: 1 });
+        }
+        updateCart();
+      }
+
+      // Fungsi untuk menghapus item dari keranjang
+      function removeFromCart(index) {
+        cart.splice(index, 1);
+        updateCart();
+      }
+
+      // Fungsi untuk mereset keranjang
+      function resetCart() {
+        cart = [];
+        updateCart();
+      }
+
+      // Fungsi untuk memperbarui tampilan keranjang
+      function updateCart() {
+        const cartItems = document.getElementById("cart-items");
+        const cartTotal = document.getElementById("cart-total");
+        const cartCount = document.getElementById("cart-count");
+        cartItems.innerHTML = "";
+        total = 0;
+
+        // Loop melalui setiap item di keranjang
+        cart.forEach((item, index) => {
+          const li = document.createElement("li");
+          li.textContent = `${item.name} - ${item.price} IDR x ${item.quantity}`;
+
+          // Tombol untuk menghapus item
+          const removeButton = document.createElement("button");
+          removeButton.textContent = "-";
+          removeButton.onclick = () => removeFromCart(index);
+          li.prepend(removeButton);
+          cartItems.appendChild(li);
+
+          // Hitung total harga
+          total += item.price * item.quantity;
+        });
+
+        // Tampilkan total harga dan jumlah item
+        cartTotal.textContent = total;
+        cartCount.textContent = cart.reduce(
+          (sum, item) => sum + item.quantity,
+          0
+        ).toString(); // Hitung total jumlah item
+      }
+
+      // Fungsi untuk menampilkan atau menyembunyikan pop-up keranjang
+      function toggleCart() {
+        const popup = document.getElementById("cart-popup");
+        popup.style.display =
+          popup.style.display === "block" ? "none" : "block"; // Toggle tampilan pop-up
+      }
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tentang Kami - Kafe Koma</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="jawascipt.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      body {
+        background-image: linear-gradient(120deg, #f7f7f7, #e5e5e5);
+              background-size: 100% 100%;
+              background-attachment: fixed;
+
+            .about-section {
+              padding: 20px;
+              margin: 20px;
+              text-align: center;
+            }
+
+            .about-section h2 {
+              font: 50px 'poppins';
+              font-weight: bold;
+              margin-bottom: 80px;
+              margin-top: 30px;
+            }
+
+            .about-section p {
+              font: 20px 'poppins';
+              text-align: justify;
+              line-height: 2.0;
+            }
+
+            .about-section video {
+              width: 500px;
+              float: left;
+              border-radius: 10px;
+              margin: 30px;
+              margin-top: 0px;
+              margin-bottom: 10px;
+              
+            }
+
+            .map-container {
+              border: 1px solid #ddd; /* Border untuk peta */
+              border-radius: 10px;
+              overflow: hidden;
+              text-align: center;
+              margin: 20px;
+              margin-top: 50px;
+            }
+
+            .map-container h2 {
+              font: 35px 'poppins';
+              font-weight: bold;
+              margin-top: 30px;
+              margin-bottom: 30px;
+            }
+
+            .map-container iframe {
+              width: 100%;
+              height: 310px; /* Tinggi peta */
+              border: 0;
+              padding-bottom: 0px;
+              border-bottom-right-radius: 10px;
+              border-bottom-left-radius: 10px;
+            }
+
+            .mission-section {
+              padding-bottom: 0px;
+              background-color: #f9f9f9;
+              border-radius: 10px;
+              box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+              margin: 20px 0;
+              margin-left: 20px;
+              margin-right: 20px;
+              padding-bottom: 20px;
+            }
+
+            .mission-title {
+              color: #4a2c2a; /* Warna coklat tua */
+              text-align: center;
+              margin-bottom: 50px;
+              margin-top: 15px;
+              font: 35px 'poppins';
+              font-weight: bold;
+
+            }
+
+            .mission-grid {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+              gap: 20px;
+            }
+
+            .mission-card {
+              background-color: #fff;
+              border-radius: 10px;
+              padding: 20px;
+              box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+              transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .mission-card:hover {
+              transform: translateY(-5px);
+              box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            .mission-subtitle {
+              color: #4a2c2a; /* Warna coklat tua */
+              margin-bottom: 15px;
+              font: 16px 'poppins';
+              font-weight: bold;
+            }
+
+            .mission-list {
+              list-style: none;
+              padding: 0;
+              color: #555;
+            }
+
+            .mission-list li {
+              margin-bottom: 10px;
+              font: 14px 'poppins';
+            }
+
+            .team-section {
+              text-align: center;
+              margin: 20px;
+            }
+
+            .team-section h2 {
+              font: 35px 'poppins';
+              font-weight: bold;
+            }
+
+            .team-section p {
+              font: 17px 'poppins';
+              margin-bottom: 50px;
+            }
+
+            .team-member p {
+              font: 16px 'poppins';
+            }
+
+            #about {
+              color : white;
+              border-radius : 100px;
+              background : #fbcfa2;
+              padding : 5px;
+            }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="latar">
+        <div>
+          <p class="judulkoma">K O M A,</p>
+          <br />
+          <p class="judulcne">C O F F E E & E A T E R Y</p>
+        </div>
+      </div>
+    </header>
+
+    <header class="header2">
+      <nav>
+        <a href="index.html" class="nav-menu" data-target="index.html">Home</a>
+        <a
+          href="tentang.html"
+          id="active"
+          class="nav-menu"
+          data-target="tentang.html"
+          >About Us</a
+        >
+        <a href="galeri.html" class="nav-menu" data-target="galeri.html"
+          >Our Gallery</a
+        >
+        <img src="media/koma2.jpg" alt="Logo" />
+        <a href="fasilitas.html" class="nav-menu" data-target="fasilitas.html"
+          >Facility</a
+        >
+        <a href="menu.html" class="nav-menu" data-target="menu.html">Menu</a>
+        <a href="kontak.html" class="nav-menu" data-target="kontak.html"
+          >Contact Us</a
+        >
+      </nav>
+    </header>
+
+    <audio id="background-music" autoplay loop>
+      <source src="media/music.mp3" type="audio/mpeg" />
+      Browser Anda tidak mendukung elemen audio.
+    </audio>
+
+    <button id="music-toggle">
+      <img id="play-icon" src="media/pause.png" alt="Play" />
+      <!-- Gambar saat musik menyala -->
+      <img
+        id="pause-icon"
+        src="media/play.png"
+        alt="Pause"
+        style="display: none"
+      />
+      <!-- Gambar saat musik mati -->
+    </button>
+
+    <div class="container">
+      <div class="about-section">
+        <h2>Selamat datang di Kafe Koma!</h2>
+        <video src="media/tentang.mp4" autoplay muted loop></video>
+        <p>
+          Selamat datang di Kafe Koma, tempat di mana cita rasa bertemu dengan
+          kenyamanan. Kami adalah kafe yang didirikan dengan semangat untuk
+          menyajikan pengalaman kuliner yang tak terlupakan. Terletak di jantung
+          Kota Pal IX, Kafe Koma menawarkan suasana yang hangat dan ramah, ideal
+          untuk bersantai, berkumpul dengan teman, atau bahkan bekerja. Kafe Koma didirikan dengan semangat untuk memberikan pengalaman
+          bersantai yang unik dan menyenangkan. Kami menawarkan berbagai pilihan
+          makanan dan minuman yang berkualitas, serta suasana yang nyaman untuk
+          semua pengunjung. Di Kafe Koma, kami percaya bahwa setiap cangkir kopi memiliki cerita.
+          Kami menggunakan biji kopi pilihan yang dipanggang dengan sempurna
+          untuk menghasilkan rasa yang kaya dan aroma yang menggoda. Selain
+          kopi, kami juga menawarkan berbagai pilihan minuman segar dan makanan
+          lezat yang dibuat dengan bahan-bahan berkualitas tinggi.
+        </p>
+      </div>
+
+      <section class="mission-section">
+        <h2 class="mission-title">Misi Kami</h2>
+        <div class="mission-grid">
+          <div class="mission-card">
+            <h3 class="mission-subtitle">Tujuan Utama</h3>
+            <ul class="mission-list">
+              <li>
+                Menciptakan tempat yang menyajikan makanan dan minuman yang
+                lezat.
+              </li>
+              <li>
+                Menawarkan pengalaman kuliner yang unik dan berkualitas tinggi.
+              </li>
+            </ul>
+          </div>
+          <div class="mission-card">
+            <h3 class="mission-subtitle">Fokus Komunitas</h3>
+            <ul class="mission-list">
+              <li>
+                Menjadi ruang bagi komunitas untuk berkumpul dan berinteraksi.
+              </li>
+              <li>
+                Memfasilitasi berbagi momen berharga antara keluarga, teman, dan
+                rekan kerja.
+              </li>
+            </ul>
+          </div>
+          <div class="mission-card">
+            <h3 class="mission-subtitle">Inovasi dan Kreativitas</h3>
+            <ul class="mission-list">
+              <li>
+                Menghadirkan menu yang selalu diperbarui dengan bahan-bahan
+                segar dan lokal.
+              </li>
+              <li>
+                Mendorong kreativitas dalam penyajian makanan dan minuman.
+              </li>
+            </ul>
+          </div>
+          <div class="mission-card">
+            <h3 class="mission-subtitle">Keterlibatan Sosial</h3>
+            <ul class="mission-list">
+              <li>Mendukung kegiatan lokal dan acara komunitas.</li>
+              <li>
+                Berkontribusi pada pengembangan sosial dan ekonomi di lingkungan
+                sekitar.
+              </li>
+            </ul>
+          </div>
+          <div class="mission-card">
+            <h3 class="mission-subtitle">Lingkungan yang Ramah</h3>
+            <ul class="mission-list">
+              <li>
+                Menciptakan suasana yang nyaman dan hangat bagi semua
+                pengunjung.
+              </li>
+              <li>Menyediakan layanan pelanggan yang ramah dan profesional.</li>
+            </ul>
+          </div>
+          <div class="mission-card">
+            <h3 class="mission-subtitle">Sustainabilitas</h3>
+            <ul class="mission-list">
+              <li>
+                Mengimplementasikan praktik ramah lingkungan dalam operasional.
+              </li>
+              <li>
+                Mengurangi limbah dan mempromosikan penggunaan bahan-bahan yang
+                berkelanjutan.
+              </li>
+            </ul>
+          </div>
+          <div class="mission-card">
+            <h3 class="mission-subtitle">Pengalaman Pelanggan</h3>
+            <ul class="mission-list">
+              <li>
+                Menyediakan pengalaman yang tak terlupakan bagi setiap
+                pengunjung.
+              </li>
+              <li>
+                Mendengarkan umpan balik pelanggan untuk terus meningkatkan
+                layanan dan produk.
+              </li>
+            </ul>
+          </div>
+          <div class="mission-card">
+            <h3 class="mission-subtitle">Kesehatan dan Kebersihan</h3>
+            <ul class="mission-list">
+              <li>
+                Menjaga standar kebersihan dan kesehatan yang tinggi di seluruh
+                area kafe.
+              </li>
+              <li>Menyediakan makanan dan minuman yang sehat dan bergizi.</li>
+            </ul>
+          </div>
+          <div class="mission-card">
+            <h3 class="mission-subtitle">Teknologi dan Kemudahan</h3>
+            <ul class="mission-list">
+              <li>
+                Menggunakan teknologi untuk meningkatkan kenyamanan pelanggan,
+                seperti pemesanan online.
+              </li>
+              <li>
+                Menyediakan fasilitas modern seperti Wi-Fi cepat dan stasiun
+                pengisian daya.
+              </li>
+            </ul>
+          </div>
+          <div class="mission-card">
+            <h3 class="mission-subtitle">Kemitraan dan Kolaborasi</h3>
+            <ul class="mission-list">
+              <li>
+                Membangun kemitraan dengan pemasok lokal untuk mendukung
+                perekonomian daerah.
+              </li>
+              <li>
+                Berkolaborasi dengan komunitas kreatif untuk menghadirkan acara
+                dan program menarik.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="team-section">
+        <h2>Tim Kami</h2>
+
+        <p>Tim kami terdiri dari para profesional yang berpengalaman dan penuh
+          dedikasi. Kami berkomitmen untuk memberikan pelayanan terbaik kepada
+          setiap pengunjung yang datang ke Kafe Koma.</p>
+
+        <div
+          class="team-members"
+          style="display: flex; justify-content: space-around; flex-wrap: wrap"
+        >
+          <div class="team-member" style="text-align: center; margin: 10px">
+            <img
+              src="media/orang1.jpg"
+              alt="Pelayan 1"
+              style="
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                border: 3px solid #fbcfa2;
+              "
+            />
+            <p>Putri</p>
+          </div>
+          <div class="team-member" style="text-align: center; margin: 10px">
+            <img
+              src="media/orang2.jpg"
+              alt="Pelayan 2"
+              style="
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                border: 3px solid #fbcfa2;
+              "
+            />
+            <p>Citra</p>
+          </div>
+          <div class="team-member" style="text-align: center; margin: 10px">
+            <img
+              src="media/orang3.jpg"
+              alt="Pelayan 3"
+              style="
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                border: 3px solid #fbcfa2;
+              "
+            />
+            <p>Neneng</p>
+          </div>
+          <div class="team-member" style="text-align: center; margin: 10px">
+            <img
+              src="media/orang4.jpg"
+              alt="Pelayan 4"
+              style="
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                border: 3px solid #fbcfa2;
+              "
+            />
+            <p>Toyib</p>
+          </div>
+          <div class="team-member" style="text-align: center; margin: 10px">
+            <img
+              src="media/orang5.jpg"
+              alt="Pelayan 5"
+              style="
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                border: 3px solid #fbcfa2;
+              "
+            />
+            <p>Arivi</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="map-container">
+        <h2>Lokasi Kami</h2>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d585.9053189873132!2d109.29836824119393!3d-0.06882549363851698!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e1d5900647fe1a3%3A0xc1f93a6f1e2e9cd6!2sKOMA%20COFFEE%20%26%20EATERY!5e1!3m2!1sid!2sid!4v1735584247022!5m2!1sid!2sid"
+          width="600"
+          height="450"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </div>
+
+    <footer>
+      <div class="latar">
+        <div>
+          <img src="media/koma2.jpg" alt="koma" />
+        </div>
+
+        <div>
+          <p class="judulkoma">K O M A,</p>
+          <br />
+          <p class="judulcne">C O F F E E & E A T E R Y</p>
+        </div>
+      </div>
+    </footer>
+
+    <footer class="footer2">
+      <div>
+        <p>
+          Jl. Perdamaian, Pal IX, Kec. Sungai Kakap, Kabupaten Kubu Raya,
+          Kalimantan Barat
+        </p>
+        <p>&copy 2024 KOMA COFFEE</p>
+      </div>
+    </footer>
+  </body>
+</html>
